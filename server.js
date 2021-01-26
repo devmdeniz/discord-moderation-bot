@@ -18,21 +18,21 @@ const { readdirSync } = require("fs");
 const ms = require("ms");
 const { PREFIX } = require("./settings.json");
 
-var prefix = ayarlar.prefix;
+var prefix = settings.prefix;
 const log = message => {
   console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${message}`);
 };
 
 //============================================================================================
-//Altyapı
+//Important
 //============================================================================================
 
 //============================================================================================
-//Altyapı
+//Important
 //============================================================================================
 
 //============================================================================================
-//Altyapı
+//Important
 //============================================================================================
 
 client.commands = new Discord.Collection();
@@ -108,8 +108,8 @@ client.elevation = message => {
   let permlvl = 0;
   if (message.member.hasPermission("BAN_MEMBERS")) permlvl = 2;
   if (message.member.hasPermission("ADMINISTRATOR")) permlvl = 3;
-  if (message.author.id === ayarlar.sahip) permlvl = 4;
-  if (message.author.id === ayarlar.sahip2) permlvl = 4;
+  if (message.author.id === settings.owner) permlvl = 4;
+  if (message.author.id === settings.owner2) permlvl = 4;
   return permlvl;
 };
 
@@ -119,29 +119,29 @@ var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
 // });
 
 //============================================================================================
-//Altyapı
+//Important
 //============================================================================================
 
 //============================================================================================
-//Altyapı
+//Important
 //============================================================================================
 
 //============================================================================================
-//Altyapı
+//Important
 //===========================================================================================
 
 client.on('guildMemberAdd', async(member) => {
- let mute = member.guild.roles.find(r => r.name === "muteli");
-let mutelimi = db.fetch(`muteli_${member.guild.id + member.id}`)
-let süre = db.fetch(`süre_${member.id + member.guild.id}`)
-if (!mutelimi) return;
-if (mutelimi == "muteli") {
+ let mute = member.guild.roles.find(r => r.name === "muted");
+let checkMute = db.fetch(`muted_${member.guild.id + member.id}`)
+let süre = db.fetch(`time_${member.id + member.guild.id}`)
+if (!checkMute) return;
+if (checkMute == "muted") {
 member.addRole(mute.id)
  
 member.send("Muteliyken Sunucudan Çıktığın için Yeniden Mutelendin!")
  setTimeout(function(){
-db.delete(`muteli_${member.guild.id + member.id}`)
-    member.send(`<@${member.id}> Muten açıldı.`)
+db.delete(`muted_${member.guild.id + member.id}`)
+    member.send(`<@${member.id}> now you can speak.`)
     member.removeRole(mute.id);
   }, ms(süre));
 }
