@@ -138,7 +138,7 @@ if (!checkMute) return;
 if (checkMute == "muted") {
 member.addRole(mute.id)
  
-member.send("Muteliyken Sunucudan Çıktığın için Yeniden Mutelendin!")
+member.send("You Are Muted Again Because You Logged Off The Server While You Was Muted!")
  setTimeout(function(){
 db.delete(`muted_${member.guild.id + member.id}`)
     member.send(`<@${member.id}> now you can speak.`)
