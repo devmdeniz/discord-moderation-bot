@@ -53,7 +53,7 @@ db.set(`voicemuted_${msg.guild.id + user.id}`, 'voicemuted')
 db.set(`vtime_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
                         
   const muteembed = new Discord.RichEmbed()
-  .setTitle('Penal: Mute')
+  .setTitle('Penal: Voice Mute')
     .setThumbnail(user.avatarURL||user.defaultAvatarURL)
       .addField('Moderator', `${mod}`,true)
       .addField('Reason', `\`${sebep}\``,true)
@@ -65,7 +65,7 @@ msg.guild.channels.get(log).sendEmbed(muteembed)
   setTimeout(function(){
 db.delete(`voicemuted_${msg.guild.id + user.id}`)
     user.removeRole(mute.id)
- msg.channel.send(`<@${user.id}> Now can speak.`)
+ msg.channel.send(`<@${user.id}> now can speak.`)
   }, ms(mutetime));
  
 }
