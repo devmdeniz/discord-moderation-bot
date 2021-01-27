@@ -13,13 +13,12 @@ return message.channel.sendEmbed(bilgi).then(m => m.delete(150000)); return
   let sıfırla = db.fetch(`mlog_${message.guild.id}`)
 if(args[0] === "reset") {
     if(!sıfırla) {
-      message.channel.send(`Log Channel not already set.`)
-                    
+      message.channel.send(`Log channel already not setted.`)                    
       return
     }
     db.delete(`mlog_${message.guild.id}`)
-    message.channel.send(`Log channel resetted succesfully.`)
-              
+
+    message.channel.send(`Log channel resetted succesfully.`)              
     return
   }
   if (!mlog) {
