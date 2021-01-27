@@ -17,6 +17,7 @@ const { join } = require("path");
 const { readdirSync } = require("fs");
 const ms = require("ms");
 const { PREFIX } = require("./settings.json");
+const secret = require("./secret.json");
 
 var prefix = settings.prefix;
 const log = message => {
@@ -149,4 +150,4 @@ db.delete(`muted_${member.guild.id + member.id}`)
 
 
 
-client.login(process.env.TOKEN);
+client.login(secret.TOKEN);
