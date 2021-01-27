@@ -49,8 +49,8 @@ msg.channel.send(``)
   .replace(`m`," Minute")
   .replace(`w`," Week")
     msg.channel.send(`${user} is now Muted for, ${mutezaman} time!`)
-db.set(`voicemuted_${msg.guild.id + user.id}`, 'voicemuted')
-db.set(`vtime_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
+db.set(`muted_${msg.guild.id + user.id}`, 'voicemuted')
+db.set(`time_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
                         
   const muteembed = new Discord.RichEmbed()
   .setTitle('Penal: Voice Mute')
@@ -63,7 +63,7 @@ db.set(`vtime_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
 msg.guild.channels.get(log).sendEmbed(muteembed)
  
   setTimeout(function(){
-db.delete(`voicemuted_${msg.guild.id + user.id}`)
+db.delete(`muted_${msg.guild.id + user.id}`)
     user.removeRole(mute.id)
  msg.channel.send(`<@${user.id}> now can speak.`)
   }, ms(mutetime));
