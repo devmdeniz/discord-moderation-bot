@@ -1,5 +1,5 @@
 // enable-pnpm-------------------------------------------------------------
-const ayarlar = require("./settings.json");
+const settings = require("./settings.json");
 const chalk = require("chalk");
 const Discord = require("discord.js");
 const discord = require("discord.js");
