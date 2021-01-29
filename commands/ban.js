@@ -43,9 +43,9 @@ exports.run = async (bot, message, args) => {
 			msg.guild.channels.get(log).sendEmbed(muteembed)
 
             } catch(e) {
-            message.channel.send(':warning: Bir hata var!')
+            message.channel.send(':warning: ERROR!')
         }
-    } else return console.log('Hata var')
+    } else return console.log('ERROR')
 }
 
 exports.conf = {
