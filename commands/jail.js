@@ -19,20 +19,19 @@ if (!sebep) return msg.reply('Sebep Belirtmedin!')
  
  
  
-  let mute = msg.guild.roles.find(r => r.name === "voicemuted");
+  let mute = msg.guild.roles.find(r => r.name === "jail");
         
   let mutetime = args[1]
 if(!mute){
       mute = await msg.guild.createRole({
-        name: "voicemuted",
+        name: "jail",
         color: "#818386",
         permissions:[]
       })
       msg.guild.channels.forEach(async (channel, id) => {
         await channel.overwritePermissions(mute, {
-          CONNECT: false,
-          SPEAK: false,
-          USE_VAD: false
+          SEND_MESSAGES: false,
+          ADD_REACTIONS: false
         });
       });
  
@@ -47,12 +46,12 @@ msg.channel.send(``)
 .replace(`h`," Saat")
 .replace(`m`," Dakika")
 .replace(`w`," Hafta")
-  msg.channel.send(`${user} Adlı Kişi , ${mutezaman} Susturuldu!`)
-db.set(`sesmuteli_${msg.guild.id + user.id}`, 'sesmuteli')
-db.set(`sessüre_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
+  msg.channel.send(`${user} Adlı Kişi , ${mutezaman} hapse girdi!`)
+db.set(`jailed_${msg.guild.id + user.id}`, 'jailed')
+db.set(`jailtime_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
                         
   const muteembed = new Discord.RichEmbed()
-        .setTitle('Ceza: Sesli Susturma')
+        .setTitle('Ceza: Jail')
     .setThumbnail(user.avatarURL||user.defaultAvatarURL)
       .addField('Moderatör', `${mod}`,true)
       .addField('Sebep', `\`${sebep}\``,true)
@@ -62,21 +61,21 @@ db.set(`sessüre_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
 msg.guild.channels.get(log).sendEmbed(muteembed)
  
   setTimeout(function(){
-db.delete(`sesmuteli_${msg.guild.id + user.id}`)
+db.delete(`jailed_${msg.guild.id + user.id}`)
     user.removeRole(mute.id)
- msg.channel.send(`<@${user.id}> Muten açıldı.`)
+ msg.channel.send(`<@${user.id}> Hapis yasağın kaldırıldı.`)
   }, ms(mutetime));
  
 }
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ["seslisustur"],
+  aliases: ["jailed"],
   permLevel: 0
 };
  
 exports.help = {
-  name: "vmute",
+  name: "jail",
   description: "",
   usage: ""
 };
