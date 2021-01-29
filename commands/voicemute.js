@@ -2,21 +2,20 @@ const Discord = require("discord.js");
 const ms = require("ms");
 const client = new Discord.Client();
 const db = require("quick.db");
-const settings = require("../settings.json");
 
 exports.run = async (receivedMessage,  msg, args) => {
 let user = msg.guild.member(msg.mentions.users.first() || msg.guild.members.get(args[0]));
-        if (!msg.member.hasPermission("BAN_MEMBERS")) return msg.channel.send("if you want use this command; you must have `BAN MEMBERS` Permission.");
- if (user.hasPermission("BAN_MEMBERS")) return msg.channel.send(`ERROR! \`${user.tag}\` is a ADMIN or MOD (have a Ban Members Permission).`)
-let log = await db.fetch(`vlog_${msg.guild.id}`)
-  if (!log) return msg.channel.send("Log Channel is not setted! If you want set, you can use `"+ settings.prefix +"log #tagchannel` command !") 
+        if (!msg.member.hasPermission("BAN_MEMBERS")) return msg.channel.send("Bu komudu kullanabilmek için `Ban` yetkisine sahip olmanız gerek.");
+ if (user.hasPermission("BAN_MEMBERS")) return msg.channel.send(`Hata! \`${user.tag}\` isimli kullanıcı bu sunucuda yetkili.`)
+let log = await db.fetch(`mlog_${msg.guild.id}`)
+if (!log) return msg.channel.send("Log kanalı ayarlanmadı, lütfen `"+ settings.prefix +"log #kanaletiket` Komutunu kullanın !") 
 var mod = msg.author
 var reason = args[1]
  let sebep = args.slice(2).join(' ')
  
-  if (!user) return msg.reply('Please mention anyone')
- if (!reason) return msg.reply('Please write a time! examples : 1s/1m/1h/1d/1w')
-if (!sebep) return msg.reply('Please write a reason!')
+  if (!user) return msg.reply('Kullanıcı Etiketlemedin')
+ if (!reason) return msg.reply('Süre Belirtmedin! Seçeneklerin : 1s/1m/1h/1d/1w')
+if (!sebep) return msg.reply('Sebep Belirtmedin!')
  
  
  
@@ -40,39 +39,39 @@ if(!mute){
     }
  
  
-  await user.addRole(mute.id);
+  await(user.addRole(mute.id));
 msg.channel.send(``)
   let mutezaman = args[1]
-  .replace(`d`," Day")
-  .replace(`s`," Second")
-  .replace(`h`," Hour")
-  .replace(`m`," Minute")
-  .replace(`w`," Week")
-    msg.channel.send(`${user} is now Muted for, ${mutezaman} time!`)
-db.set(`muted_${msg.guild.id + user.id}`, 'voicemuted')
-db.set(`time_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
+.replace(`d`," Gün")
+.replace(`s`," Saniye")
+.replace(`h`," Saat")
+.replace(`m`," Dakika")
+.replace(`w`," Hafta")
+  msg.channel.send(`${user} Adlı Kişi , ${mutezaman} Susturuldu!`)
+db.set(`sesmuteli_${msg.guild.id + user.id}`, 'sesmuteli')
+db.set(`sessüre_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
                         
   const muteembed = new Discord.RichEmbed()
-  .setTitle('Penal: Voice Mute')
+        .setTitle('Ceza: Sesli Susturma')
     .setThumbnail(user.avatarURL||user.defaultAvatarURL)
-      .addField('Moderator', `${mod}`,true)
-      .addField('Reason', `\`${sebep}\``,true)
-      .addField('User', `<@${user.id}>`,true)
-      .addField('Time',`\`${mutezaman}\``)
+      .addField('Moderatör', `${mod}`,true)
+      .addField('Sebep', `\`${sebep}\``,true)
+      .addField('Kullanıcı', `<@${user.id}>`,true)
+      .addField('Süre',`\`${mutezaman}\``)
   . setColor("RANDOM")
 msg.guild.channels.get(log).sendEmbed(muteembed)
  
   setTimeout(function(){
-db.delete(`muted_${msg.guild.id + user.id}`)
+db.delete(`sesmuteli_${msg.guild.id + user.id}`)
     user.removeRole(mute.id)
- msg.channel.send(`<@${user.id}> now can speak.`)
+ msg.channel.send(`<@${user.id}> Muten açıldı.`)
   }, ms(mutetime));
  
 }
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ["voice-mute"],
+  aliases: ["seslisustur"],
   permLevel: 0
 };
  
