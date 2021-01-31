@@ -131,17 +131,17 @@ var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
 //Important
 //===========================================================================================
 client.on('guildMemberAdd', async(member) => {
-  let mute = member.guild.roles.find(r => r.name === "muted");
- let mutelimi = db.fetch(`muteli_${member.guild.id + member.id}`)
- let süre = db.fetch(`süre_${member.id + member.guild.id}`)
+  let mute = member.guild.roles.find(r => r.name === "cmuted");
+ let mutelimi = db.fetch(`cmuted_${member.guild.id + member.id}`)
+ let süre = db.fetch(`ctime_${member.id + member.guild.id}`)
  if (!mutelimi) return;
- if (mutelimi == "muteli") {
+ if (mutelimi == "muted") {
  member.addRole(mute.id)
   
- member.send("Muteliyken Sunucudan Çıktığın için Yeniden Mutelendin!")
+ member.send("You Are Muted Again Because You Logged Off The Server While You Was Muted!")
   setTimeout(function(){
- db.delete(`muteli_${member.guild.id + member.id}`)
-     member.send(`<@${member.id}> Muten açıldı.`)
+ db.delete(`cmuted_${member.guild.id + member.id}`)
+     member.send(`<@${member.id}> Now can speak.`)
      member.removeRole(mute.id);
    }, ms(süre));
  }
@@ -151,16 +151,16 @@ client.on('guildMemberAdd', async(member) => {
 
  client.on('guildMemberAdd', async(member) => {
   let mute = member.guild.roles.find(r => r.name === "voicemuted");
- let mutelimi = db.fetch(`sesmuteli_${member.guild.id + member.id}`)
- let süre = db.fetch(`sessüre_${member.id + member.guild.id}`)
+ let mutelimi = db.fetch(`voicemuted_${member.guild.id + member.id}`)
+ let süre = db.fetch(`voicetime_${member.id + member.guild.id}`)
  if (!mutelimi) return;
- if (mutelimi == "sesmuteli") {
+ if (mutelimi == "voicemuted") {
  member.addRole(mute.id)
   
- member.send("Muteliyken Sunucudan Çıktığın için Yeniden Mutelendin!")
+ member.send("You Are Muted Again Because You Logged Off The Server While You Was Muted!")
   setTimeout(function(){
- db.delete(`sesmuteli_${member.guild.id + member.id}`)
-     member.send(`<@${member.id}> Sesli Susturman açıldı.`)
+ db.delete(`voicemuted_${member.guild.id + member.id}`)
+     member.send(`<@${member.id}> Now can speak.`)
      member.removeRole(mute.id);
    }, ms(süre));
  }
@@ -174,10 +174,10 @@ client.on('guildMemberAdd', async(member) => {
  if (mutelimi == "jailed") {
  member.addRole(mute.id)
   
- member.send("Jailliyken sunucudan ciktigin icin tekrardan mutelendin!")
+ member.send("You Are Muted Again Because You Logged Off The Server While You Was Muted!")
   setTimeout(function(){
  db.delete(`jailed_${member.guild.id + member.id}`)
-     member.send(`<@${member.id}> Hapis Cezan Kaldırıldı.`)
+     member.send(`<@${member.id}> Now is not jailed.`)
      member.removeRole(mute.id);
    }, ms(süre));
  }
