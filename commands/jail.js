@@ -30,8 +30,8 @@ if(!mute){
       })
       msg.guild.channels.forEach(async (channel, id) => {
         await channel.overwritePermissions(mute, {
-          SEND_MESSAGES: false,
-          ADD_REACTIONS: false
+          VIEW_CHANNEL: false,
+          READ_MESSAGE_HISTORY: false
         });
       });
  
