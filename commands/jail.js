@@ -13,7 +13,7 @@ var mod = msg.author
 var time = args[1]
  let rson = args.slice(2).join(' ')
  
-  if (!user) return msg.reply('You don\'t mention a user')
+  if (!user) return msg.reply('You didn\'t mention a user')
  if (!time) return msg.reply('Please write a time, Ex : 1s/1m/1h/1d/1w')
 if (!rson) return msg.reply('You didn\'t say a reason!')
  
@@ -45,7 +45,7 @@ msg.channel.send(``)
 .replace(`h`," Hour")
 .replace(`m`," Minute")
 .replace(`w`," Week")
-  msg.channel.send(`${user} is a jailed , ${mutetime} time!`)
+  msg.channel.send(`${user} is a jailed for , ${mutetime} !`)
 db.set(`jailed_${msg.guild.id + user.id}`, 'jailed')
 db.set(`jailtime_${msg.mentions.users.first().id + msg.guild.id}`, mutetime)
                         
